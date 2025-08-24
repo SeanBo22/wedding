@@ -53,9 +53,33 @@ def show_leaderboard():
     st.subheader("🏆 Leaderboard")
     leaderboard = load_leaderboard()
     high_scores = get_high_scores(leaderboard)
+
     if high_scores:
-        for i, (name, high) in enumerate(high_scores, start=1):
-            st.markdown(f"**{i}. {name}** — {high} points")
+        # --- Top 3 with special badges ---
+        for i, (name, high) in enumerate(high_scores[:3], start=1):
+            if i == 1:
+                flair = "👑"
+                badge = "Crowned Couple’s Expert"
+            elif i == 2:
+                flair = "💖"
+                badge = "Romantic Runner-Up"
+            elif i == 3:
+                flair = "🍾"
+                badge = "Champagne Contender"
+
+            st.markdown(
+                f"<span style='color:gray;font-size:14px;'>🏅 {badge}</span><br>"
+                f"**{i}. {name}** — {high} points {flair}",
+                unsafe_allow_html=True
+            )
+
+        # --- Everyone else grouped as Guest Stars ---
+        others = high_scores[3:]
+        if others:
+            st.markdown("<br>⭐ **Guest Stars** ⭐", unsafe_allow_html=True)
+            for i, (name, high) in enumerate(others, start=4):
+                st.markdown(f"**{i}. {name}** — {high} points")
+
     else:
         st.info("No scores yet! Be the first to play! 🎉")
 
