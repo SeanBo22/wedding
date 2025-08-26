@@ -8,8 +8,7 @@ DATA_FILE = "leaderboard.json"
 
 # --- Guest List (names for dropdown) ---
 GUESTS = [
-    "Mother of Bride (Sabrina)", "Mother of Bride (Shannon)", "Mother of Groom (Chris)", 
-    "Father of Groom (Brian)", "Joey", 
+    "Sabrina", "Shannon", "Joey", "Chris", "Brian", 
     "Cameron", "Morgan", "Bailey", "Lindsey", "Garet", "Sarah", "Aj", "Kyle",
     "Maryah", "Reuben", "Rachel"
 ]
