@@ -6,18 +6,26 @@ import json
 MAX_ATTEMPTS = 3
 DATA_FILE = "leaderboard.json"
 
+# --- Guest List (names for dropdown) ---
+GUESTS = [
+    "Mother of Bride (Sabrina)", "Mother of Bride (Shannon)", "Mother of Groom (Chris)", 
+    "Father of Groom (Brian)", "Joey", 
+    "Cameron", "Morgan", "Bailey", "Lindsey", "Garet", "Sarah", "Aj", "Kyle",
+    "Maryah", "Reuben", "Rachel"
+]
+
 # --- Quiz Data ---
 quiz = [
-    {"question": "Where did Corrine and Sean first meet?", "options": ["At a wedding", "On a hike", "At a friend's party"], "answer": "At a friend's party"},
-    {"question": "What is Corrine's favorite dessert?", "options": ["Chocolate cake", "Tiramisu", "Lemon bars"], "answer": "Lemon bars"},
-    {"question": "Sean is most likely to spend a Saturday doing...?", "options": ["Watching football 🏈", "Gardening 🪴", "Building AI models 🤖"], "answer": "Watching football 🏈"},
-    {"question": "Corrine's favorite color is...?", "options": ["Blue 💙", "Lavender 💜", "Green 💚"], "answer": "Lavender 💜"},
-    {"question": "What city did Sean propose in?", "options": ["New York", "Denver", "San Diego"], "answer": "Denver"},
-    {"question": "Which of these is Corrine & Sean’s favorite shared activity?", "options": ["Cooking together 🍳", "Camping 🏕️", "Dancing 💃🕺"], "answer": "Cooking together 🍳"},
-    {"question": "What is the name of their pet?", "options": ["Mochi 🐶", "Luna 🐱", "Biscuit 🐾"], "answer": "Mochi 🐶"},
-    {"question": "What's Sean’s go-to coffee order?", "options": ["Black coffee ☕", "Latte with oat milk 🥛", "Caramel macchiato 🍮"], "answer": "Latte with oat milk 🥛"},
-    {"question": "Which show do they love to binge together?", "options": ["The Office 😂", "Stranger Things 👾", "Game of Thrones 🐉"], "answer": "The Office 😂"},
-    {"question": "Their honeymoon destination is...?", "options": ["Bali 🌴", "Italy 🇮🇹", "Japan 🍣"], "answer": "Italy 🇮🇹"},
+    {"question": "What is Sean's Favorite Quality of Corrine?", "options": [], "answer": ""},
+    {"question": "Where was Corrine & Sean's first date?", "options": [], "answer": ""},
+    {"question": "Where did Sean propose?", "options": [], "answer": ""},
+    {"question": "Where are Corrine & Sean planning their 1 year anniversary?", "options": [], "answer": ""},
+    {"question": "What was the first meal Sean cooked for Corrine?", "options": [], "answer": ""},
+    {"question": "Which of these is Corrine & Sean’s favorite shared activity?", "options": [""], "answer": ""},
+    {"question": "What is the name of their pet?", "options": ["Mochi 🐶", "Luna 🐱", "Biscuit 🐾"], "answer": ""},
+    {"question": "What's Sean’s go-to coffee order?", "options": [], "answer": ""},
+    {"question": "Which show do they love to binge together?", "options": [], "answer": ""},
+    {"question": "Their honeymoon destination is...?", "options": [], "answer": ""},
 ]
 
 # --- Helper Functions ---
@@ -95,22 +103,22 @@ if not st.session_state.name_entered:
     st.title("💒 Congrats Corrine & Sean! 💖")
     st.markdown("Let's see how well you know the lovely couple! ✨")
 
-    guest_name = st.text_input("Enter your name to begin:", key="guest_name")
+    guest_name = st.selectbox("Who are you? Select your name:", [""] + GUESTS, key="guest_name")
 
     col1, col2 = st.columns(2)
 
     with col1:
         if st.button("Start Quiz"):
-            if guest_name.strip() != "":
-                st.session_state.name = guest_name.strip()
+            if guest_name != "":
+                st.session_state.name = guest_name
                 leaderboard = load_leaderboard()
                 attempts = leaderboard.get(st.session_state.name, {"attempts": 0}).get("attempts", 0)
                 if attempts >= MAX_ATTEMPTS:
-                    st.error(f"Sorry, you've already used all {MAX_ATTEMPTS} attempts 😢")
+                    st.error(f"Sorry, {guest_name}, you've already used all {MAX_ATTEMPTS} attempts 😢")
                 else:
                     st.session_state.name_entered = True
             else:
-                st.warning("Please enter your name to continue.")
+                st.warning("Please select your name to continue.")
 
     with col2:
         if st.button("🏆 Check Leaderboard"):
