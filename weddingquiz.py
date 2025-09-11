@@ -15,16 +15,24 @@ GUESTS = [
 
 # --- Quiz Data ---
 quiz = [
-    {"question": "What is Sean's Favorite Quality of Corrine?", "options": [], "answer": ""},
     {"question": "Where was Corrine & Sean's first date?", "options": [], "answer": ""},
     {"question": "Where did Sean propose?", "options": [], "answer": ""},
+    {"question": "Who spends more time researching a restaurant menu before a date?", "options": [], "answer": ""},
+    {"question": "What is Sean's favorite quality of Corrine?", "options": [], "answer": ""},
     {"question": "Where are Corrine & Sean planning their 1 year anniversary?", "options": [], "answer": ""},
+    {"question": "Who is Corrine's celebrity crush?", "options": [], "answer": ""},
     {"question": "What was the first meal Sean cooked for Corrine?", "options": [], "answer": ""},
     {"question": "Which of these is Corrine & Sean’s favorite shared activity?", "options": [""], "answer": ""},
-    {"question": "What is the name of their pet?", "options": ["Mochi 🐶", "Luna 🐱", "Biscuit 🐾"], "answer": ""},
-    {"question": "What's Sean’s go-to coffee order?", "options": [], "answer": ""},
+    {"question": "What is the name of their pet?", "options": [], "answer": ""},
+    {"question": "What is Corrine's favorite color?", "options": [], "answer": ""},
+    {"question": "Where would Sean eat his last meal?", "options": [], "answer": ""},
+    {"question": "Who is the night owl?", "options": [], "answer": ""},
     {"question": "Which show do they love to binge together?", "options": [], "answer": ""},
-    {"question": "Their honeymoon destination is...?", "options": [], "answer": ""},
+    {"question": "Corrine asked Sean to be his girlfriend in the 7th grade?", "options": [], "answer": ""},
+    {"question": "How long have Corrine & Sean been together?", "options": [], "answer": ""},
+    {"question": "Who has more common sense?", "options": [], "answer": ""},
+    {"question": "What is the couples favorite season?", "options": [], "answer": ""},
+    
 ]
 
 # --- Helper Functions ---
