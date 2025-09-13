@@ -10,29 +10,32 @@ DATA_FILE = "leaderboard.json"
 GUESTS = [
     "Sabrina", "Shannon", "Joey", "Chris", "Brian", 
     "Cameron", "Morgan", "Bailey", "Lindsey", "Garet", "Sarah", "Aj", "Kyle",
-    "Maryah", "Reuben", "Rachel"
+    "Maryah", "Reuben", "Avery", "Rachel"
 ]
 
 # --- Quiz Data ---
 quiz = [
-    {"question": "Where was Corrine & Sean's first date?", "options": [], "answer": ""},
-    {"question": "Where did Sean propose?", "options": [], "answer": ""},
-    {"question": "Who spends more time researching a restaurant menu before a date?", "options": [], "answer": ""},
-    {"question": "What is Sean's favorite quality of Corrine?", "options": [], "answer": ""},
-    {"question": "Where are Corrine & Sean planning their 1 year anniversary?", "options": [], "answer": ""},
-    {"question": "Who is Corrine's celebrity crush?", "options": [], "answer": ""},
-    {"question": "What was the first meal Sean cooked for Corrine?", "options": [], "answer": ""},
-    {"question": "Which of these is Corrine & Sean’s favorite shared activity?", "options": [""], "answer": ""},
-    {"question": "What is the name of their pet?", "options": [], "answer": ""},
-    {"question": "What is Corrine's favorite color?", "options": [], "answer": ""},
-    {"question": "Where would Sean eat his last meal?", "options": [], "answer": ""},
-    {"question": "Who is the night owl?", "options": [], "answer": ""},
-    {"question": "Which show do they love to binge together?", "options": [], "answer": ""},
-    {"question": "Corrine asked Sean to be his girlfriend in the 7th grade?", "options": [], "answer": ""},
-    {"question": "How long have Corrine & Sean been together?", "options": [], "answer": ""},
-    {"question": "Who has more common sense?", "options": [], "answer": ""},
-    {"question": "What is the couples favorite season?", "options": [], "answer": ""},
-    
+    {"question": "Where was Corrine & Sean's first date?", "options": ["Prom", "Dutch Bros", "Zoo", "Alaska"], "answer": "Dutch Bros"},
+    {"question": "Where did Sean propose?", "options": ["The Broadmoor", "Patty Jewett Golf Course", "On a Cruise", "His Parent's Backyard"], "answer": "The Broadmoor"},
+    {"question": "Who has more tools?", "options": ["Corrine", "Sean"], "answer": "Corrine"},
+    {"question": "What is Sean's favorite quality of Corrine?", "options": ["Generosity", "Attitude", "Organization", "Humor"], "answer": "Humor"},
+    {"question": "Corrine orders for Sean at restaurants.", "options": ["True", "False"], "answer": "True"},
+    {"question": "Where are Corrine & Sean planning their 1 year anniversary?", "options": ["Alaskan Cruise", "Bahamas", "Nebraska", "Backpacking through Europe"], "answer": "Alaskan Cruise"},
+    {"question": "Who is Corrine's celebrity crush?", "options": ["Timothee Chalamet", "Zendaya", "Adam Sandler", "Matthew McConaughey"], "answer": "Adam Sandler"},
+    {"question": "Corrine was surprised when Sean proposed.", "options": ["True", "False"], "answer": "False"},
+    {"question": "What was the first meal Sean cooked for Corrine?", "options": ["Spaghetti", "Frozen Pizza", "Tater-Tot Casserole", "Steak"], "answer": "Frozen Pizza"},
+    {"question": "Who spends more time researching a restaurant menu before a date?", "options": ["Corrine", "Sean"], "answer": "Sean"},
+    {"question": "What is the name of their pet?", "options": ["Jim", "Speedy", "Xero", "Zero"], "answer": "Zero"},
+    {"question": "Where would Sean eat his last meal?", "options": ["Chili's", "Applebees", "Corrine's Cooking", "Subway"], "answer": "Chili's"},
+    {"question": "Who is the night owl?", "options": ["Corrine", "Sean"], "answer": "Corrine"},
+    {"question": "Which show do they love to binge together?", "options": ["Walking Dead", "Friends", "Psych", "New Girl"], "answer": "Psych"},
+    {"question": "Corrine asked Sean to be his girlfriend in the 6th grade.", "options": ["True", "False"], "answer": "True"},
+    {"question": "How long have Corrine & Sean been together?", "options": ["3 years", "4 years", "5 years", "6 years"], "answer": "6 years"},
+    {"question": "Who has more common sense?", "options": ["Corrine", "Sean"], "answer": "Corrine"},
+    {"question": "What is the couples favorite season?", "options": ["Spring", "Summer", "Fall", "Winter"], "answer": "Fall"},
+    {"question": "Who is more likely to fall asleep during a movie?", "options": ["Corrine", "Sean"], "answer": "Sean"},
+    {"question": "Who is most excited about getting married?", "options": ["Corrine", "Sean", "Both"], "answer": "Both"}
+
 ]
 
 # --- Helper Functions ---
