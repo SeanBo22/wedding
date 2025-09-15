@@ -5,13 +5,13 @@ import json
 # --- Constants ---
 MAX_ATTEMPTS = 3
 DATA_FILE = "leaderboard.json"
-ADMIN_PASSWORD = "love2025"  # 🔑 Change this to your admin password
+ADMIN_PASSWORD = "love2025"
 
 # --- Guest List (names for dropdown) ---
 GUESTS = [
     "Sabrina", "Shannon", "Joey", "Chris", "Brian",
     "Cameron", "Morgan", "Bailey", "Lindsey", "Garet", "Sarah", "Aj", "Kyle",
-    "Maryah", "Reuben", "Avery", "Rachel", "Sean"   # 👈 Added Sean
+    "Maryah", "Reuben", "Avery", "Rachel", "Sean"
 ]
 
 # --- Quiz Data ---
