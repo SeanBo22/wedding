@@ -5,12 +5,13 @@ import json
 # --- Constants ---
 MAX_ATTEMPTS = 3
 DATA_FILE = "leaderboard.json"
+ADMIN_PASSWORD = "love2025"  # 🔑 Change this to your admin password
 
 # --- Guest List (names for dropdown) ---
 GUESTS = [
-    "Sabrina", "Shannon", "Joey", "Chris", "Brian", 
+    "Sabrina", "Shannon", "Joey", "Chris", "Brian",
     "Cameron", "Morgan", "Bailey", "Lindsey", "Garet", "Sarah", "Aj", "Kyle",
-    "Maryah", "Reuben", "Avery", "Rachel"
+    "Maryah", "Reuben", "Avery", "Rachel", "Sean"   # 👈 Added Sean
 ]
 
 # --- Quiz Data ---
@@ -72,31 +73,23 @@ def show_leaderboard():
     high_scores = get_high_scores(leaderboard)
 
     if high_scores:
-        # --- Top 3 with special badges ---
         for i, (name, high) in enumerate(high_scores[:3], start=1):
             if i == 1:
-                flair = "👑"
-                badge = "Crowned Couple’s Expert"
+                flair = "👑"; badge = "Crowned Couple’s Expert"
             elif i == 2:
-                flair = "💖"
-                badge = "Romantic Runner-Up"
+                flair = "💖"; badge = "Romantic Runner-Up"
             elif i == 3:
-                flair = "🍾"
-                badge = "Champagne Contender"
-
+                flair = "🍾"; badge = "Champagne Contender"
             st.markdown(
                 f"<span style='color:gray;font-size:14px;'>🏅 {badge}</span><br>"
                 f"**{i}. {name}** — {high} points {flair}",
                 unsafe_allow_html=True
             )
-
-        # --- Everyone else grouped as Guest Stars ---
         others = high_scores[3:]
         if others:
             st.markdown("<br>⭐ **Guest Stars** ⭐", unsafe_allow_html=True)
             for i, (name, high) in enumerate(others, start=4):
                 st.markdown(f"**{i}. {name}** — {high} points")
-
     else:
         st.info("No scores yet! Be the first to play! 🎉")
 
@@ -119,13 +112,18 @@ if not st.session_state.name_entered:
     with col1:
         if st.button("Start Quiz"):
             if guest_name != "":
-                st.session_state.name = guest_name
-                leaderboard = load_leaderboard()
-                attempts = leaderboard.get(st.session_state.name, {"attempts": 0}).get("attempts", 0)
-                if attempts >= MAX_ATTEMPTS:
-                    st.error(f"Sorry, {guest_name}, you've already used all {MAX_ATTEMPTS} attempts 😢")
-                else:
+                if guest_name == "Sean":
+                    st.session_state.name = "Sean"
+                    st.session_state.admin_mode = True
                     st.session_state.name_entered = True
+                else:
+                    st.session_state.name = guest_name
+                    leaderboard = load_leaderboard()
+                    attempts = leaderboard.get(st.session_state.name, {"attempts": 0}).get("attempts", 0)
+                    if attempts >= MAX_ATTEMPTS:
+                        st.error(f"Sorry, {guest_name}, you've already used all {MAX_ATTEMPTS} attempts 😢")
+                    else:
+                        st.session_state.name_entered = True
             else:
                 st.warning("Please select your name to continue.")
 
@@ -135,8 +133,40 @@ if not st.session_state.name_entered:
 
     st.stop()
 
-# --- Main Quiz ---
-st.title("💘 Corrine & Sean Wedding Quiz!")
+# --- Admin Mode (Sean) ---
+if st.session_state.get("admin_mode", False):
+    st.title("🔑 Admin Panel (Sean)")
+    password = st.text_input("Enter Admin Password:", type="password")
+
+    if password:
+        if password != ADMIN_PASSWORD:
+            st.error("❌ Wrong password. Try again.")
+        else:
+            st.success("✅ Access Granted!")
+            leaderboard = load_leaderboard()
+            if not leaderboard:
+                st.info("No users found in leaderboard yet.")
+            else:
+                user_to_update = st.selectbox("Select a user to update:", list(leaderboard.keys()))
+                update_field = st.selectbox("What do you want to update?", ["Top Score", "Attempts"])
+                new_value = st.number_input("Enter new value:", min_value=0, step=1)
+
+                if st.button("Update User"):
+                    if update_field == "Top Score":
+                        if leaderboard[user_to_update]["scores"]:
+                            leaderboard[user_to_update]["scores"] = [new_value]
+                        else:
+                            leaderboard[user_to_update]["scores"].append(new_value)
+                    elif update_field == "Attempts":
+                        if new_value == 0:
+                            # 🔥 Remove user completely if attempts set to 0
+                            leaderboard.pop(user_to_update, None)
+                            st.success(f"✅ {user_to_update} has been removed from the leaderboard!")
+                        else:
+                            leaderboard[user_to_update]["attempts"] = new_value
+
+                    save_leaderboard(leaderboard)
+    st.stop()
 
 # --- Personalized welcome message ---
 st.markdown(f"""
@@ -166,16 +196,7 @@ with col1:
 
             if allowed:
                 st.success(f"{st.session_state.name}, you scored {score} out of {len(quiz)}! 🎉")
-                if score == len(quiz):
-                    st.balloons()
-                    st.markdown("💍 **Perfect score! You know Corrine & Sean inside and out!**")
-                elif score >= 8:
-                    st.markdown("🎊 **Great job! You’re clearly close to the couple!**")
-                elif score >= 5:
-                    st.markdown("😊 **Nice try! You know a bit about them!**")
-                else:
-                    st.markdown("😅 **Oops! Time to chat more with Corrine & Sean!**")
-
+                if score == len(quiz): st.balloons()
                 st.markdown(f"You have used {result['attempts']} of {MAX_ATTEMPTS} attempts.")
                 st.markdown("---")
                 show_leaderboard()
