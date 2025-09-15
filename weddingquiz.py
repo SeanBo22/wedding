@@ -35,7 +35,6 @@ quiz = [
     {"question": "What is the couples favorite season?", "options": ["Spring", "Summer", "Fall", "Winter"], "answer": "Fall"},
     {"question": "Who is more likely to fall asleep during a movie?", "options": ["Corrine", "Sean"], "answer": "Sean"},
     {"question": "Who is most excited about getting married?", "options": ["Corrine", "Sean", "Both"], "answer": "Both"}
-
 ]
 
 # --- Helper Functions ---
@@ -139,36 +138,49 @@ if not st.session_state.name_entered:
 # --- Main Quiz ---
 st.title("💘 Corrine & Sean Wedding Quiz!")
 
+# --- Personalized welcome message ---
+st.markdown(f"""
+✨ Welcome, **{st.session_state.name}**! ✨  
+Answer all the questions below to see how well you know Corrine & Sean.  
+Remember, you only get **{MAX_ATTEMPTS} attempts**, so make them count! 💍💖
+""")
+
 score = 0
+answers = {}
+
 for q in quiz:
-    user_answer = st.radio(q["question"], q["options"], key=q["question"])
-    if user_answer == q["answer"]:
+    user_answer = st.radio(q["question"], q["options"], index=None, key=q["question"])
+    answers[q["question"]] = user_answer
+    if user_answer is not None and user_answer == q["answer"]:
         score += 1
 
 col1, col2 = st.columns(2)
 
 with col1:
     if st.button("Submit Quiz"):
-        leaderboard = load_leaderboard()
-        allowed, result = record_score(st.session_state.name, score, leaderboard)
-
-        if allowed:
-            st.success(f"{st.session_state.name}, you scored {score} out of {len(quiz)}! 🎉")
-            if score == len(quiz):
-                st.balloons()
-                st.markdown("💍 **Perfect score! You know Corrine & Sean inside and out!**")
-            elif score >= 8:
-                st.markdown("🎊 **Great job! You’re clearly close to the couple!**")
-            elif score >= 5:
-                st.markdown("😊 **Nice try! You know a bit about them!**")
-            else:
-                st.markdown("😅 **Oops! Time to chat more with Corrine & Sean!**")
-
-            st.markdown(f"You have used {result['attempts']} of {MAX_ATTEMPTS} attempts.")
-            st.markdown("---")
-            show_leaderboard()
+        if None in answers.values():
+            st.warning("⚠️ Please answer all questions before submitting.")
         else:
-            st.error(f"You’ve already used all {MAX_ATTEMPTS} attempts.")
+            leaderboard = load_leaderboard()
+            allowed, result = record_score(st.session_state.name, score, leaderboard)
+
+            if allowed:
+                st.success(f"{st.session_state.name}, you scored {score} out of {len(quiz)}! 🎉")
+                if score == len(quiz):
+                    st.balloons()
+                    st.markdown("💍 **Perfect score! You know Corrine & Sean inside and out!**")
+                elif score >= 8:
+                    st.markdown("🎊 **Great job! You’re clearly close to the couple!**")
+                elif score >= 5:
+                    st.markdown("😊 **Nice try! You know a bit about them!**")
+                else:
+                    st.markdown("😅 **Oops! Time to chat more with Corrine & Sean!**")
+
+                st.markdown(f"You have used {result['attempts']} of {MAX_ATTEMPTS} attempts.")
+                st.markdown("---")
+                show_leaderboard()
+            else:
+                st.error(f"You’ve already used all {MAX_ATTEMPTS} attempts.")
 
 with col2:
     if st.button("🏆 Check Leaderboard"):
